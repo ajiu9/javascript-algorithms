@@ -9,4 +9,34 @@
 更快的访问，如随机访问，是不可行的。与链表相比，数组具有更好的缓存位置。
 
 ![Linked List](https://upload.wikimedia.org/wikipedia/commons/6/6d/Singly-linked-list.svg)
-![fsdf](https://upload.wikimedia.org/wikipedia/commons/6/6d/Singly-linked-list.svg)
+
+## 基本操作的伪代码
+
+### 插入
+
+```text
+Add(value)
+  Pre: value is the value to add the list
+  Post: value has been placed at the tail of the list
+  n ← node(value)
+  if head = ø
+    head ← n
+    tail ← n
+  else
+    tail.next ← n
+    tail ← n
+  end if
+end Add
+```
+
+```text
+Prepend(value)
+ Pre: value is the value to add to the list
+ Post: value has been placed at the head of the list
+ n ← node(value)
+ n.next ← head
+if tail = ø
+  tail ← n
+ end
+end Prepend
+```
