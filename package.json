@@ -1,0 +1,22 @@
+{
+  "name": "learn-algorithms",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint ./src/**",
+    "test": "jest",
+    "coverage": "npm run test -- --coverage"
+  },
+  "author": "江月夜 <615944323@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "eslint": "^7.27.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "@types/jest": "^26.0.23",
+    "eslint-plugin-jest": "^24.3.6",
+    "jest": "^27.0.0"
+  }
+}
