@@ -7,4 +7,4 @@
 `B` - 初学者， `A` - 进阶
 
 * `B` [链表](src/data-structures/linked-list/README.md)
-* `B` [双向链表](src/data-structures/doubly-linked-list/README.zh-CN.md)
+* `B` [双向链表](src/data-structures/doubly-linked-list/README.md)
