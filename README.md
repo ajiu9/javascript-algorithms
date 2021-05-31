@@ -10,3 +10,4 @@
 * `B` [双向链表](src/data-structures/doubly-linked-list/README.md)
 * `B` [队列](src/data-structures/queue/README.md)
 * `B` [栈](src/data-structures/stack/README.md)
+* `B` [哈希表(散列)](src/data-structures/hash-table/README.md)
