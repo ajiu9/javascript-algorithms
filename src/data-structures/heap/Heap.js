@@ -6,16 +6,16 @@ import Comparator from '../../utils/comparator/Comparator';
 export default class Heap {
   /**
    * @constructs Heap
-   * @param {function} ComparatorFunction 
+   * @param {Function} [comparatorFunction]
    */
-  constructor(ComparatorFunction) {
+  constructor(comparatorFunction) {
     if (new.target === Heap) {
-      throw new TypeError('Cannot construct Heap instance directly')
+      throw new TypeError('Cannot construct Heap instance directly');
     }
 
     // Array representation of the heap.
     this.heapContainer = [];
-    this.campare = new Comparator(ComparatorFunction);
+    this.compare = new Comparator(comparatorFunction);
   }
 
   /**
@@ -55,7 +55,7 @@ export default class Heap {
    * @return {boolean}
    */
   hasLeftChild(parentIndex) {
-    return this.getLeftChildIndex(parentIndex)  < this.heapContainer.length;
+    return this.getLeftChildIndex(parentIndex) < this.heapContainer.length;
   }
 
   /**
@@ -82,7 +82,7 @@ export default class Heap {
     return this.heapContainer[this.getRightChildIndex(parentIndex)];
   }
 
-   /**
+  /**
    * @param {number} childIndex
    * @return {*}
    */
@@ -125,8 +125,9 @@ export default class Heap {
 
     const item = this.heapContainer[0];
 
+    // Move the last element from the end to the head.
     this.heapContainer[0] = this.heapContainer.pop();
-    this.heaifyDown();
+    this.heapifyDown();
 
     return item;
   }
@@ -138,7 +139,6 @@ export default class Heap {
   add(item) {
     this.heapContainer.push(item);
     this.heapifyUp();
-
     return this;
   }
 
@@ -194,11 +194,10 @@ export default class Heap {
   find(item, comparator = this.compare) {
     const foundItemIndices = [];
 
-    for (let itemIndex = 0; itemIndex < this.heapContainer.length; itemIndex++) {
+    for (let itemIndex = 0; itemIndex < this.heapContainer.length; itemIndex += 1) {
       if (comparator.equal(item, this.heapContainer[itemIndex])) {
         foundItemIndices.push(itemIndex);
       }
-      
     }
 
     return foundItemIndices;
@@ -214,7 +213,7 @@ export default class Heap {
   /**
    * @return {string}
    */
-   toString() {
+  toString() {
     return this.heapContainer.toString();
   }
 
@@ -239,7 +238,7 @@ export default class Heap {
   /**
    * @param {number} [customStartIndex]
    */
-   heapifyDown(customStartIndex = 0) {
+  heapifyDown(customStartIndex = 0) {
     // Compare the parent element to its children and swap parent with the appropriate
     // child (smallest child for MinHeap, largest child for MaxHeap).
     // Do the same for next children after swap.
@@ -272,13 +271,15 @@ export default class Heap {
    * Checks if pair of heap elements is in correct order.
    * For MinHeap the first element must be always smaller or equal.
    * For MaxHeap the first element must be always bigger or equal.
-   * 
-   * @param {*} firstElement 
-   * @param {*} secondElement 
+   *
+   * @param {*} firstElement
+   * @param {*} secondElement
+   * @return {boolean}
    */
+  /* istanbul ignore next */
   pairIsInCorrectOrder(firstElement, secondElement) {
     throw new Error(`
-      you have to implement heap pair comparision method
+      You have to implement heap pair comparision method
       for ${firstElement} and ${secondElement} values.
     `);
   }
