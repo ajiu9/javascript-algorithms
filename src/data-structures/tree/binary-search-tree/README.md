@@ -1,4 +1,4 @@
-#(Binary Search Tree)
+#二叉搜索树(Binary Search Tree)
 
 在计算机科学中**二叉搜索树**（BST），有时称为_有序或排序的二叉树_），
 是一种特殊类型的容器：存储
@@ -70,4 +70,4 @@ end insertNode
 
 ### 空间复杂度
 
-O(n
+O(n)
