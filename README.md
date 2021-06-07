@@ -13,4 +13,7 @@
 * `B` [哈希表(散列)](src/data-structures/hash-table/README.md)
 * `B` [堆](src/data-structures/heap/README.md)
 * `B` [优先队列](src/data-structures/priority-queue/README.md)
+* `A` [字典树](src/data-structures/trie/README.md)
+* `A` [树](src/data-structures/tree/README.md)
+  * `A` [二叉查找树](src/data-structures/tree/binary-search-tree)
 
