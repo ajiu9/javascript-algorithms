@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "eslint": "eslint ./src/**",
+    "lint": "eslint ./src/**",
     "test": "jest",
     "coverage": "npm run test -- --coverage",
     "ci": "npm run lint && npm run coverage",
