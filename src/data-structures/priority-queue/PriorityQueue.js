@@ -1,7 +1,6 @@
 import MinHeap from '../heap/MinHeap';
 import Comparator from '../../utils/comparator/Comparator';
 
-
 // It is the same san min heap except that when comparing two elements
 // we take into account its priority instead of the element's value.
 
@@ -48,7 +47,7 @@ export default class PriorityQueue extends MinHeap {
    * @param {number} priority - new item's priority.
    * @return {PriorityQueue}
    */
-   changePriority(item, priority) {
+  changePriority(item, priority) {
     this.remove(item, new Comparator(this.compareValue));
     this.add(item, priority);
     return this;
@@ -68,7 +67,7 @@ export default class PriorityQueue extends MinHeap {
    * @param {*} item
    * @return {boolean}
    */
-   hasValue(item) {
+  hasValue(item) {
     return this.findByValue(item).length > 0;
   }
 
@@ -92,7 +91,7 @@ export default class PriorityQueue extends MinHeap {
    * @param {*} b
    * @return {number}
    */
-   compareValue(a, b) {
+  compareValue(a, b) {
     if (a === b) {
       return 0;
     }

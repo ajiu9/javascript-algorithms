@@ -5,7 +5,7 @@ describe('Heap', () => {
     const instantiateHeap = () => {
       const heap = new Heap();
       heap.add(5);
-    }
+    };
 
     expect(instantiateHeap).toThrow();
   });

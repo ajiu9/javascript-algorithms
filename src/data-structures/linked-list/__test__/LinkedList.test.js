@@ -264,5 +264,4 @@ describe('LinkedList', () => {
     expect(linkedList.head.value).toBe(1);
     expect(linkedList.tail.value).toBe(3);
   });
-
-})
+});
