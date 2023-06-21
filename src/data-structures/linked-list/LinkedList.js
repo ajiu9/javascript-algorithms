@@ -3,19 +3,19 @@ import Comparator from '../../utils/comparator/Comparator';
 
 export default class LinkedList {
   /**
-   * @param {Function} [comparatorFunction] 
+   * @param {Function} [comparatorFunction]
    */
   constructor(comparatorFunction) {
-    /**@var LinkedListNode */
+    /** @var LinkedListNode */
     this.head = null;
 
-    /**@var LinkedListNode */
+    /** @var LinkedListNode */
     this.tail = null;
-    this.compare = new Comparator(comparatorFunction)
+    this.compare = new Comparator(comparatorFunction);
   }
 
   /**
-   * @param {*} value 
+   * @param {*} value
    * @return {LinkedList}
    */
   prepend(value) {
@@ -32,7 +32,7 @@ export default class LinkedList {
   }
 
   /**
-   * @param {*} value 
+   * @param {*} value
    * @return {LinkedList}
    */
   append(value) {
@@ -92,9 +92,9 @@ export default class LinkedList {
    * @param {Object} findParams
    * @param {*} findParams.value
    * @param {function} [findParams.callback]
-   * @return {LinkedListNode} 
+   * @return {LinkedListNode}
    */
-  find({value = undefined, callback = undefined}) {
+  find({ value = undefined, callback = undefined }) {
     if (!this.head) {
       return null;
     }
@@ -121,7 +121,7 @@ export default class LinkedList {
   /**
    * @return {LinkedListNode}
    */
-  deleteTail(value) {
+  deleteTail() {
     const deleteTail = this.tail;
     if (this.head === this.tail) {
       this.head = null;
@@ -150,13 +150,13 @@ export default class LinkedList {
   /**
    * @return {LinkedListNode}
    */
-  deleteHead(value) {
+  deleteHead() {
     if (!this.head) {
       return null;
     }
 
     const deletedHead = this.head;
-    
+
     if (this.head.next) {
       this.head = this.head.next;
     } else {
@@ -168,7 +168,7 @@ export default class LinkedList {
   }
 
   /**
-   * 
+   *
    * @param {*[]} values - Array of values that to be converted to linked list.
    * @return {LinkedList}
    */
@@ -194,7 +194,7 @@ export default class LinkedList {
   }
 
   /**
-   * @param {function} callback 
+   * @param {function} callback
    * @return {string}
    */
   toString(callback) {

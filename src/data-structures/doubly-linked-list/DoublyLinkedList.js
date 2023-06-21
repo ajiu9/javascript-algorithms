@@ -1,23 +1,22 @@
 import DoublyLinkedListNode from './DoublyLinkedListNode';
 import Comparator from '../../utils/comparator/Comparator';
 
-
 export default class DoublyLinkedList {
   /**
-   * @param {Fuction} comparatorFunction 
+   * @param {Fuction} comparatorFunction
    */
   constructor(comparatorFunction) {
-    /**@var DoublyLinkedNode */
+    /** @var DoublyLinkedNode */
     this.head = null;
 
-    /**@var DoublyLinkedNode */
+    /** @var DoublyLinkedNode */
     this.tail = null;
 
     this.compare = new Comparator(comparatorFunction);
   }
 
   /**
-   * @param {*} value 
+   * @param {*} value
    * @return {DoublyLinkedList}
    */
   prepend(value) {
@@ -41,7 +40,7 @@ export default class DoublyLinkedList {
   }
 
   /**
-   * @param {*} value 
+   * @param {*} value
    * @return {DoublyLinkedList}
    */
   append(value) {
@@ -85,25 +84,24 @@ export default class DoublyLinkedList {
 
         if (deletedNode === this.head) {
           // If HEAD is going to be deleted...
-    
+
           // Set head to second node, which will become new head.
           this.head = deletedNode.next;
-    
+
           // Set new head's previous to null.
           if (this.head) {
             this.head.previous = null;
           }
-    
+
           // If all the nodes in list has same value that is passed as argument.
           // then all nodes will get deleted, therefore tail needs to be updated.
-    
+
           if (deletedNode === this.tail) {
             this.tail = null;
           }
-    
         } else if (deletedNode === this.tail) {
           // If TAIL is going to be deleted...
-    
+
           // Set tail to second last node, which will become new tail.
           this.tail = deletedNode.previous;
           this.tail.next = null;
@@ -111,7 +109,7 @@ export default class DoublyLinkedList {
           // If MIDDLE node is going to be deleted...
           const previousNode = deletedNode.previous;
           const nextNode = deletedNode.next;
-    
+
           previousNode.next = nextNode;
           nextNode.previous = previousNode;
         }
@@ -129,7 +127,7 @@ export default class DoublyLinkedList {
    * @param {function} [findParams.callback]
    * @return {DoublyLinkedListNode}
    */
-  find({value = undefined, callback = undefined}) {
+  find({ value = undefined, callback = undefined }) {
     if (!this.head) {
       return null;
     }
@@ -143,7 +141,7 @@ export default class DoublyLinkedList {
       }
 
       // If value is specified then try to compare by value.
-      if (value !==undefined && this.compare.equal(currentNode.value, value)) {
+      if (value !== undefined && this.compare.equal(currentNode.value, value)) {
         return currentNode;
       }
 
@@ -182,7 +180,7 @@ export default class DoublyLinkedList {
   /**
    * @return {DoublyLinkedListNode}
    */
-  deleteHead(value) {
+  deleteHead() {
     if (!this.head) {
       return null;
     }
@@ -204,7 +202,7 @@ export default class DoublyLinkedList {
    * @return {DoublyLinkedListNode[]}
    */
   toArray() {
-    const nodes = [] ;
+    const nodes = [];
 
     let currentNode = this.head;
     while (currentNode) {
@@ -226,7 +224,7 @@ export default class DoublyLinkedList {
   }
 
   /**
-   * @param {function} callback 
+   * @param {function} callback
    * @return {string}
    */
   toString(callback) {

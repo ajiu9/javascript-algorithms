@@ -15,7 +15,7 @@ describe('LinkedListNode', () => {
     expect(node.value.value).toBe(1);
     expect(node.value.key).toBe('test');
     expect(node.next).toBeNull();
-  })
+  });
 
   it('should link nodes together', () => {
     const node2 = new LinkedListNode(2);

@@ -12,7 +12,7 @@ export default class HashTable {
    */
   constructor(hasTableSize = defaultHashTableSize) {
     // Create hash Table of certain size and fill each bucket with empty linked list.
-    this.buckets = Array(hasTableSize).fill(null).map(() => new LinkedList);
+    this.buckets = Array(hasTableSize).fill(null).map(() => new LinkedList());
 
     // Just to keep track of all actual keys in a fast way.
     this.keys = {};
@@ -55,7 +55,7 @@ export default class HashTable {
 
     if (!node) {
       // Insert new node.
-      bucketLinkedList.append({key, value});
+      bucketLinkedList.append({ key, value });
     } else {
       // Update value of existing node.
       node.value.value = value;
@@ -66,20 +66,20 @@ export default class HashTable {
    * @param {string} key
    * @return {*}
    */
-   delete(key) {
+  delete(key) {
     const keyHash = this.hash(key);
     delete this.keys[key];
     const bucketLinkedList = this.buckets[keyHash];
-    const node = bucketLinkedList.find({  callback: (nodeValue) => nodeValue.key === key });
+    const node = bucketLinkedList.find({ callback: (nodeValue) => nodeValue.key === key });
 
     if (node) {
       return bucketLinkedList.delete(node.value);
     }
 
     return null;
-   }
+  }
 
-   /**
+  /**
    * @param {string} key
    * @return {*}
    */
@@ -90,7 +90,7 @@ export default class HashTable {
     return node ? node.value.value : undefined;
   }
 
-   /**
+  /**
    * @param {string} key
    * @return {boolean}
    */
@@ -102,21 +102,21 @@ export default class HashTable {
    * @param {string} key
    * @return {boolean}
    */
-   getKeys() {
+  getKeys() {
     return Object.keys(this.keys);
-   }
+  }
 
-   /**
+  /**
    * Gets the list of all the stored values in the hash table.
    *
    * @return {*[]}
    */
-    getValues() {
-      return this.buckets.reduce((values, bucket) => {
-        const bucketValues = bucket.toArray()
-          .map((LinkedListNode) => LinkedListNode.value.value);
-        
-        return values.concat(bucketValues);
-      }, []);
-    }
+  getValues() {
+    return this.buckets.reduce((values, bucket) => {
+      const bucketValues = bucket.toArray()
+        .map((LinkedListNode) => LinkedListNode.value.value);
+
+      return values.concat(bucketValues);
+    }, []);
+  }
 }
