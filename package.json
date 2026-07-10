@@ -1,8 +1,11 @@
 {
-  "name": "learn-algorithms",
+  "name": "algorithms",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
+    "clean": "pnpm run clean:dist && pnpm run -r --parallel clean",
+    "clean:dist": "rimraf dist",
     "lint": "eslint ./src/**",
     "test": "jest",
     "coverage": "npm run test -- --coverage",
@@ -15,14 +18,12 @@
     "@babel/cli": "7.20.7",
     "@babel/preset-env": "^7.20.2",
     "@types/jest": "29.4.0",
-    "eslint": "^8.33.0",
-    "eslint-config-airbnb": "19.0.4",
-    "eslint-plugin-import": "2.27.5",
-    "eslint-plugin-jest": "27.2.1",
-    "eslint-plugin-jsx-a11y": "6.7.1",
+    "@ajiu9/eslint-config": "latest",
+    "eslint": "^9.13.0",
     "husky": "8.0.3",
     "jest": "29.4.1",
-    "pngjs": "^7.0.0"
+    "pngjs": "^7.0.0",
+    "rimraf": "^6.0.1"
   },
   "engines": {
     "node": ">=16.15.0",
