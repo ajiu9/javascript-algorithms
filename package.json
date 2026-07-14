@@ -1,8 +1,14 @@
 {
   "name": "algorithms",
-  "version": "1.0.0",
   "type": "module",
+  "version": "1.0.0",
+  "author": "江月夜 <615944323@qq.com>",
+  "license": "MIT",
   "main": "index.js",
+  "engines": {
+    "node": ">=16.15.0",
+    "npm": ">=8.5.5"
+  },
   "scripts": {
     "clean": "pnpm run clean:dist && pnpm run -r --parallel clean",
     "clean:dist": "rimraf dist",
@@ -12,21 +18,15 @@
     "ci": "npm run lint && npm run coverage",
     "prepare": "husky install"
   },
-  "author": "江月夜 <615944323@qq.com>",
-  "license": "MIT",
   "devDependencies": {
+    "@ajiu9/eslint-config": "latest",
     "@babel/cli": "7.20.7",
     "@babel/preset-env": "^7.20.2",
     "@types/jest": "29.4.0",
-    "@ajiu9/eslint-config": "latest",
     "eslint": "^9.13.0",
     "husky": "8.0.3",
     "jest": "29.4.1",
     "pngjs": "^7.0.0",
     "rimraf": "^6.0.1"
-  },
-  "engines": {
-    "node": ">=16.15.0",
-    "npm": ">=8.5.5"
   }
 }
