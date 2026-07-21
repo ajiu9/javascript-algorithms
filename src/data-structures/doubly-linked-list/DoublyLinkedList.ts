@@ -1,11 +1,20 @@
 import DoublyLinkedListNode from './DoublyLinkedListNode';
 import Comparator from '../../utils/comparator/Comparator';
 
-export default class DoublyLinkedList {
+interface FindParams<T> {
+  value?: T;
+  callback?: (value: T) => boolean;
+}
+
+export default class DoublyLinkedList<T> {
+  head: DoublyLinkedListNode<T> | null;
+  tail: DoublyLinkedListNode<T> | null;
+  compare: Comparator<T>;
+
   /**
-   * @param {Fuction} comparatorFunction
+   * @param {Function} comparatorFunction
    */
-  constructor(comparatorFunction) {
+  constructor(comparatorFunction?: (a: T, b: T) => number) {
     /** @var DoublyLinkedNode */
     this.head = null;
 
@@ -16,10 +25,10 @@ export default class DoublyLinkedList {
   }
 
   /**
-   * @param {*} value
+   * @param {T} value
    * @return {DoublyLinkedList}
    */
-  prepend(value) {
+  prepend(value: T): this {
     // Make new node to be a head.
     const newNode = new DoublyLinkedListNode(value, this.head);
 
@@ -40,10 +49,10 @@ export default class DoublyLinkedList {
   }
 
   /**
-   * @param {*} value
+   * @param {T} value
    * @return {DoublyLinkedList}
    */
-  append(value) {
+  append(value: T): this {
     const newNode = new DoublyLinkedListNode(value);
 
     // If there is no head yet let's make new node a head.
@@ -55,7 +64,7 @@ export default class DoublyLinkedList {
     }
 
     // Attach new node to the end of linked list.
-    this.tail.next = newNode;
+    this.tail!.next = newNode;
 
     // Attach current tail to the new node's previous reference.
     newNode.previous = this.tail;
@@ -67,16 +76,16 @@ export default class DoublyLinkedList {
   }
 
   /**
-   * @param {*} value
+   * @param {T} value
    * @return {DoublyLinkedListNode}
    */
-  delete(value) {
+  delete(value: T): DoublyLinkedListNode<T> | null {
     if (!this.head) {
       return null;
     }
 
-    let deletedNode = null;
-    let currentNode = this.head;
+    let deletedNode: DoublyLinkedListNode<T> | null = null;
+    let currentNode: DoublyLinkedListNode<T> | null = this.head;
 
     while (currentNode) {
       if (this.compare.equal(currentNode.value, value)) {
@@ -104,11 +113,11 @@ export default class DoublyLinkedList {
 
           // Set tail to second last node, which will become new tail.
           this.tail = deletedNode.previous;
-          this.tail.next = null;
+          this.tail!.next = null;
         } else {
           // If MIDDLE node is going to be deleted...
-          const previousNode = deletedNode.previous;
-          const nextNode = deletedNode.next;
+          const previousNode = deletedNode.previous!;
+          const nextNode = deletedNode.next!;
 
           previousNode.next = nextNode;
           nextNode.previous = previousNode;
@@ -123,16 +132,16 @@ export default class DoublyLinkedList {
 
   /**
    * @param {Object} findParams
-   * @param {*} findParams.value
+   * @param {T} findParams.value
    * @param {function} [findParams.callback]
    * @return {DoublyLinkedListNode}
    */
-  find({ value = undefined, callback = undefined }) {
+  find({ value = undefined, callback = undefined }: FindParams<T>): DoublyLinkedListNode<T> | null {
     if (!this.head) {
       return null;
     }
 
-    let currentNode = this.head;
+    let currentNode: DoublyLinkedListNode<T> | null = this.head;
 
     while (currentNode) {
       // If callback is specified then try to find node by callback.
@@ -154,7 +163,7 @@ export default class DoublyLinkedList {
   /**
    * @return {DoublyLinkedListNode}
    */
-  deleteTail() {
+  deleteTail(): DoublyLinkedListNode<T> | null {
     if (!this.tail) {
       // No tail to delete.
       return null;
@@ -172,7 +181,7 @@ export default class DoublyLinkedList {
     // If there are many nodes in linked list...
     const deletedTail = this.tail;
     this.tail = this.tail.previous;
-    this.tail.next = null;
+    this.tail!.next = null;
 
     return deletedTail;
   }
@@ -180,7 +189,7 @@ export default class DoublyLinkedList {
   /**
    * @return {DoublyLinkedListNode}
    */
-  deleteHead() {
+  deleteHead(): DoublyLinkedListNode<T> | null {
     if (!this.head) {
       return null;
     }
@@ -201,8 +210,8 @@ export default class DoublyLinkedList {
   /**
    * @return {DoublyLinkedListNode[]}
    */
-  toArray() {
-    const nodes = [];
+  toArray(): DoublyLinkedListNode<T>[] {
+    const nodes: DoublyLinkedListNode<T>[] = [];
 
     let currentNode = this.head;
     while (currentNode) {
@@ -214,10 +223,10 @@ export default class DoublyLinkedList {
   }
 
   /**
- * @param {*[]} values - Array of values that need to be converted to linked list.
- * @return {DoublyLinkedList}
- */
-  fromArray(values) {
+   * @param {T[]} values - Array of values that need to be converted to linked list.
+   * @return {DoublyLinkedList}
+   */
+  fromArray(values: T[]): this {
     values.forEach((value) => this.append(value));
 
     return this;
@@ -227,7 +236,7 @@ export default class DoublyLinkedList {
    * @param {function} callback
    * @return {string}
    */
-  toString(callback) {
+  toString(callback?: (value: T) => string): string {
     return this.toArray().map((node) => node.toString(callback)).toString();
   }
 
@@ -235,10 +244,10 @@ export default class DoublyLinkedList {
    * Reverse a linked list.
    * @returns {DoublyLinkedList}
    */
-  reverse() {
-    let currNode = this.head;
-    let prevNode = null;
-    let nextNode = null;
+  reverse(): this {
+    let currNode: DoublyLinkedListNode<T> | null = this.head;
+    let prevNode: DoublyLinkedListNode<T> | null = null;
+    let nextNode: DoublyLinkedListNode<T> | null = null;
 
     while (currNode) {
       // Store next node.
