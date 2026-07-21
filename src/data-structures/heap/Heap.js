@@ -276,11 +276,12 @@ export default class Heap {
    * @param {*} secondElement
    * @return {boolean}
    */
-  /* istanbul ignore next */
+  /* v8 ignore start */
   pairIsInCorrectOrder(firstElement, secondElement) {
     throw new Error(`
       You have to implement heap pair comparision method
       for ${firstElement} and ${secondElement} values.
     `);
   }
+  /* v8 ignore stop */
 }
