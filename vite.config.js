@@ -14,10 +14,10 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    include: ['**/__test__/**/*.test.js'],
+    include: ['**/__test__/**/*.test.{js,ts}'],
     coverage: {
       provider: 'v8',
-      include: ['src/**/*.js'],
+      include: ['src/**/*.{js,ts}'],
       exclude: ['src/**/__test__/**', 'src/index.js'],
       thresholds: {
         statements: 100,

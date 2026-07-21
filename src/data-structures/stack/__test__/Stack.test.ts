@@ -2,13 +2,13 @@ import Stack from '../Stack';
 
 describe('Stack', () => {
   it('should create empty stack', () => {
-    const stack = new Stack();
+    const stack = new Stack<number>();
     expect(stack).not.toBeNull();
     expect(stack.linkedList).not.toBeNull();
   });
 
   it('should stack data to stack', () => {
-    const stack = new Stack();
+    const stack = new Stack<number>();
 
     stack.push(1);
     stack.push(2);
@@ -17,7 +17,7 @@ describe('Stack', () => {
   });
 
   it('should peek data from stack', () => {
-    const stack = new Stack();
+    const stack = new Stack<number>();
 
     expect(stack.peek()).toBeNull();
 
@@ -29,7 +29,7 @@ describe('Stack', () => {
   });
 
   it('should check if stack is empty', () => {
-    const stack = new Stack();
+    const stack = new Stack<number>();
 
     expect(stack.isEmpty()).toBe(true);
 
@@ -39,7 +39,7 @@ describe('Stack', () => {
   });
 
   it('should pop data from stack', () => {
-    const stack = new Stack();
+    const stack = new Stack<number>();
 
     stack.push(1);
     stack.push(2);
@@ -51,20 +51,21 @@ describe('Stack', () => {
   });
 
   it('should be possible to push/pop objects', () => {
-    const stack = new Stack();
+    const stack = new Stack<{ value: string; key: string }>();
 
     stack.push({ value: 'test1', key: 'key1' });
     stack.push({ value: 'test2', key: 'key2' });
 
-    const stringifier = (value) => `${value.key}:${value.value}`;
+    const stringifier = (value: { value: string; key: string }) =>
+      `${value.key}:${value.value}`;
 
     expect(stack.toString(stringifier)).toBe('key2:test2,key1:test1');
-    expect(stack.pop().value).toBe('test2');
-    expect(stack.pop().value).toBe('test1');
+    expect(stack.pop()!.value).toBe('test2');
+    expect(stack.pop()!.value).toBe('test1');
   });
 
   it('should be possible to convert stack to array', () => {
-    const stack = new Stack();
+    const stack = new Stack<number>();
 
     expect(stack.peek()).toBeNull();
 
