@@ -9,13 +9,11 @@ interface FindParams<T> {
 export default class LinkedList<T> {
   head: LinkedListNode<T> | null;
   tail: LinkedListNode<T> | null;
-  compare: Comparator;
+  compare: Comparator<T>;
 
   constructor(comparatorFunction?: (a: T, b: T) => number) {
-    /** @var LinkedListNode */
     this.head = null;
 
-    /** @var LinkedListNode */
     this.tail = null;
     this.compare = new Comparator(comparatorFunction);
   }
