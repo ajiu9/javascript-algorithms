@@ -1,11 +1,13 @@
-export default class Comparator {
+export default class Comparator<T> {
+  private compare: (a: T, b: T) => number;
+
   /**
    * Constructor.
-   * @param {function(a: *, b: *)} [compareFunction] - It may be custom compare function that, let's
+   * @param {function(a: T, b: T)} [compareFunction] - It may be custom compare function that, let's
    * say may compare custom objects together.
    */
-  constructor(compareFunction) {
-    this.compare = compareFunction || Comparator.defaultCompareFunction;
+  constructor(compareFunction?: (a: T, b: T) => number) {
+    this.compare = compareFunction || (Comparator.defaultCompareFunction as (a: T, b: T) => number);
   }
 
   /**
@@ -14,7 +16,7 @@ export default class Comparator {
    * @param {(string|number)} b
    * @returns {number}
    */
-  static defaultCompareFunction(a, b) {
+  static defaultCompareFunction(a: string | number, b: string | number): number {
     if (a === b) {
       return 0;
     }
@@ -28,7 +30,7 @@ export default class Comparator {
    * @param {*} b
    * @return {boolean}
    */
-  equal(a, b) {
+  equal(a: T, b: T): boolean {
     return this.compare(a, b) === 0;
   }
 
@@ -38,7 +40,7 @@ export default class Comparator {
    * @param {*} b
    * @return {boolean}
    */
-  lessThan(a, b) {
+  lessThan(a: T, b: T): boolean {
     return this.compare(a, b) < 0;
   }
 
@@ -48,7 +50,7 @@ export default class Comparator {
    * @param {*} b
    * @return {boolean}
    */
-  greaterThan(a, b) {
+  greaterThan(a: T, b: T): boolean {
     return this.compare(a, b) > 0;
   }
 
@@ -58,7 +60,7 @@ export default class Comparator {
    * @param {*} b
    * @return {boolean}
    */
-  lessThanOrEqual(a, b) {
+  lessThanOrEqual(a: T, b: T): boolean {
     return this.lessThan(a, b) || this.equal(a, b);
   }
 
@@ -68,15 +70,15 @@ export default class Comparator {
    * @param {*} b
    * @return {boolean}
    */
-  greaterThanOrEqual(a, b) {
+  greaterThanOrEqual(a: T, b: T): boolean {
     return this.greaterThan(a, b) || this.equal(a, b);
   }
 
   /**
    * Reverses the comparison order.
    */
-  reverse() {
+  reverse(): void {
     const compareOriginal = this.compare;
-    this.compare = (a, b) => compareOriginal(b, a);
+    this.compare = (a: T, b: T) => compareOriginal(b, a);
   }
 }

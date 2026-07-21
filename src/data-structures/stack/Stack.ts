@@ -1,13 +1,13 @@
 import LinkedList from '../linked-list/LinkedList';
 
 export default class Stack<T> {
-  private linkedList: LinkedList;
+  private linkedList: LinkedList<T>;
 
   constructor() {
     // We're going to implement Stack based on LinkedList since these
     // structures are quite similar. Compare push/pop operations of the Stack
     // with prepend/deleteHead operations of LinkedList.
-    this.linkedList = new LinkedList();
+    this.linkedList = new LinkedList<T>();
   }
 
   /**
@@ -28,7 +28,7 @@ export default class Stack<T> {
     }
 
     // Just read the value from the start of linked list without deleting it.
-    return this.linkedList.head.value as T;
+    return this.linkedList.head!.value;
   }
 
   /**
@@ -47,7 +47,7 @@ export default class Stack<T> {
     // Let's try to delete the first node (the head) from the linked list.
     // If there is no head (the linked list is empty) just return null.
     const removedHead = this.linkedList.deleteHead();
-    return removedHead ? (removedHead.value as T) : null;
+    return removedHead ? removedHead.value : null;
   }
 
   /**
@@ -56,7 +56,7 @@ export default class Stack<T> {
   toArray(): T[] {
     return this.linkedList
       .toArray()
-      .map((linkedListNode) => linkedListNode.value as T);
+      .map((linkedListNode) => linkedListNode.value);
   }
 
   /**
@@ -64,6 +64,6 @@ export default class Stack<T> {
    * @return {string}
    */
   toString(callback?: (value: T) => string): string {
-    return this.linkedList.toString(callback as (value: unknown) => string);
+    return this.linkedList.toString(callback);
   }
 }
