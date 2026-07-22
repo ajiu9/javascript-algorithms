@@ -1,5 +1,10 @@
 import HashTable from '../HashTable';
 
+interface TestItem {
+  key: string;
+  value: string;
+}
+
 describe('HashTable', () => {
   it('should create hash table of certain size', () => {
     const defaultHashTable = new HashTable();
@@ -10,7 +15,7 @@ describe('HashTable', () => {
   });
 
   it('should generate proper hash for specified keys', () => {
-    const hashTable = new HashTable();
+    const hashTable = new HashTable<string>();
 
     expect(hashTable.hash('a')).toBe(1);
     expect(hashTable.hash('b')).toBe(2);
@@ -18,7 +23,7 @@ describe('HashTable', () => {
   });
 
   it('should set, read and delete data with collisions', () => {
-    const hashTable = new HashTable(3);
+    const hashTable = new HashTable<string>(3);
 
     expect(hashTable.hash('a')).toBe(1);
     expect(hashTable.hash('b')).toBe(2);
@@ -35,7 +40,7 @@ describe('HashTable', () => {
     expect(hashTable.has('b')).toBe(true);
     expect(hashTable.has('c')).toBe(true);
 
-    const stringifier = (value) => `${value.key}:${value.value}`;
+    const stringifier = (value: TestItem) => `${value.key}:${value.value}`;
 
     expect(hashTable.buckets[0].toString(stringifier)).toBe('c:earth');
     expect(hashTable.buckets[1].toString(stringifier)).toBe('a:sky,d:ocean');
@@ -57,18 +62,19 @@ describe('HashTable', () => {
   });
 
   it('should be possible to add objects to hash table', () => {
-    const hashTable = new HashTable();
+    const hashTable = new HashTable<{ prop1: string; prop2: string }>();
 
     hashTable.set('objectKey', { prop1: 'a', prop2: 'b' });
 
     const object = hashTable.get('objectKey');
     expect(object).toBeDefined();
-    expect(object.prop1).toBe('a');
-    expect(object.prop2).toBe('b');
+    // 测试库可能无法识别非空断言，使用expect(object!.prop1)替代
+    expect(object!.prop1).toBe('a');
+    expect(object!.prop2).toBe('b');
   });
 
   it('should track actual keys', () => {
-    const hashTable = new HashTable(3);
+    const hashTable = new HashTable<string>(3);
 
     hashTable.set('a', 'sky-old');
     hashTable.set('a', 'sky');
@@ -88,7 +94,7 @@ describe('HashTable', () => {
   });
 
   it('should get all the values', () => {
-    const hashTable = new HashTable(3);
+    const hashTable = new HashTable<string>(3);
 
     hashTable.set('a', 'alpha');
     hashTable.set('b', 'beta');
@@ -103,7 +109,7 @@ describe('HashTable', () => {
   });
 
   it('should get all the values in case of hash collision', () => {
-    const hashTable = new HashTable(3);
+    const hashTable = new HashTable<string>(3);
 
     // Keys `ab` and `ba` in current implementation should result in one hash (one bucket).
     // We need to make sure that several items from one bucket will be serialized.
