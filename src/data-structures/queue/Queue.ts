@@ -1,58 +1,69 @@
 import LinkedList from '../linked-list/LinkedList';
 
-export default class Queue {
+export default class Queue<T> {
+  linkedList: LinkedList<T>;
+
   constructor() {
     // We're going to implement Queue based on LinkedList since the two
     // structures are quite similar. Namely, they both operate mostly on
     // the elements at the beginning and the end. Compare enqueue/dequeue
     // operations of Queue with append/deleteHead operations of LinkedList.
-    this.LinkedList = new LinkedList();
+    this.linkedList = new LinkedList<T>();
   }
 
   /**
    * @return {boolean}
    */
-  isEmpty() {
-    return !this.LinkedList.head;
+  isEmpty(): boolean {
+    return !this.linkedList.head;
   }
 
   /**
    * Read the element at the front of the queue without removing it.
-   * @return {*}
+   * @return {T | null}
    */
-  peek() {
-    if (!this.LinkedList.head) {
+  peek(): T | null {
+    if (!this.linkedList.head) {
       return null;
     }
 
-    return this.LinkedList.head.value;
+    return this.linkedList.head.value;
   }
 
   /**
    * Add a new element to the end of the queue (the tail of the linked list).
    * This element will be processed after all elements ahead of it.
-   * @param {*} value
+   * @param {T} value
    */
-  enqueue(value) {
-    this.LinkedList.append(value);
+  enqueue(value: T): void {
+    this.linkedList.append(value);
   }
 
   /**
    * Remove the element at the front of the queue (the head of the linked list).
    * If the queue is empty, return null.
-   * @return {*}
+   * @return {T | null}
    */
-  dequeue() {
-    const removedHead = this.LinkedList.deleteHead();
+  dequeue(): T | null {
+    const removedHead = this.linkedList.deleteHead();
     return removedHead ? removedHead.value : null;
+  }
+
+  /**
+   * @return {T[]}
+   */
+  toArray(): T[] {
+    return this.linkedList
+      .toArray()
+      .map((linkedListNode) => linkedListNode.value);
   }
 
   /**
    * @param [callback]
    * @return {string}
    */
-  toString(callback) {
+  toString(callback?: (value: T) => string): string {
     // Return string representation of the queue's linked list.
-    return this.LinkedList.toString(callback);
+    return this.linkedList.toString(callback);
   }
 }

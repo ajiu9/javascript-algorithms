@@ -8,7 +8,7 @@ describe('Queue', () => {
   });
 
   it('should enqueue data to queue', () => {
-    const queue = new Queue();
+    const queue = new Queue<number>();
 
     queue.enqueue(1);
     queue.enqueue(2);
@@ -17,20 +17,20 @@ describe('Queue', () => {
   });
 
   it('should be possible to enqueue/dequeue objects', () => {
-    const queue = new Queue();
+    const queue = new Queue<{ value: string; key: string }>();
 
     queue.enqueue({ value: 'test1', key: 'key1' });
     queue.enqueue({ value: 'test2', key: 'key2' });
 
-    const stringifier = (value) => `${value.key}:${value.value}`;
+    const stringifier = (value: { value: string; key: string }) => `${value.key}:${value.value}`;
 
     expect(queue.toString(stringifier)).toBe('key1:test1,key2:test2');
-    expect(queue.dequeue().value).toBe('test1');
-    expect(queue.dequeue().value).toBe('test2');
+    expect(queue.dequeue()!.value).toBe('test1');
+    expect(queue.dequeue()!.value).toBe('test2');
   });
 
   it('should peek data from queue', () => {
-    const queue = new Queue();
+    const queue = new Queue<number>();
 
     expect(queue.peek()).toBeNull();
 
@@ -42,7 +42,7 @@ describe('Queue', () => {
   });
 
   it('should check if queue is empty', () => {
-    const queue = new Queue();
+    const queue = new Queue<number>();
 
     expect(queue.isEmpty()).toBe(true);
 
@@ -52,7 +52,7 @@ describe('Queue', () => {
   });
 
   it('should dequeue from queue in FIFO order', () => {
-    const queue = new Queue();
+    const queue = new Queue<number>();
 
     queue.enqueue(1);
     queue.enqueue(2);
