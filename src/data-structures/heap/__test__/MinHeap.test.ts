@@ -2,7 +2,7 @@ import MinHeap from '../MinHeap';
 
 describe('MinHeap', () => {
   it('should create an empty min heap', () => {
-    const minHeap = new MinHeap();
+    const minHeap = new MinHeap<number>();
 
     expect(minHeap).toBeDefined();
     expect(minHeap.peek()).toBeNull();

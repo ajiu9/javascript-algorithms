@@ -3,7 +3,7 @@ import Comparator from '../../../utils/comparator/Comparator';
 
 describe('MaxHeap', () => {
   it('should create an empty max heap', () => {
-    const maxHeap = new MaxHeap();
+    const maxHeap = new MaxHeap<number>();
 
     expect(maxHeap).toBeDefined();
     expect(maxHeap.peek()).toBeNull();
@@ -11,7 +11,7 @@ describe('MaxHeap', () => {
   });
 
   it('should add items to the heap and heapify it up', () => {
-    const maxHeap = new MaxHeap();
+    const maxHeap = new MaxHeap<number>();
 
     maxHeap.add(5);
     expect(maxHeap.isEmpty()).toBe(false);
@@ -45,7 +45,7 @@ describe('MaxHeap', () => {
   });
 
   it('should poll items from the heap and heapify it down', () => {
-    const maxHeap = new MaxHeap();
+    const maxHeap = new MaxHeap<number>();
 
     maxHeap.add(5);
     maxHeap.add(3);
@@ -75,7 +75,7 @@ describe('MaxHeap', () => {
   });
 
   it('should heapify down through the right branch as well', () => {
-    const maxHeap = new MaxHeap();
+    const maxHeap = new MaxHeap<number>();
 
     maxHeap.add(3);
     maxHeap.add(12);
@@ -91,7 +91,7 @@ describe('MaxHeap', () => {
   });
 
   it('should be possible to find item indices in heap', () => {
-    const maxHeap = new MaxHeap();
+    const maxHeap = new MaxHeap<number>();
 
     maxHeap.add(3);
     maxHeap.add(12);
@@ -107,7 +107,7 @@ describe('MaxHeap', () => {
   });
 
   it('should be possible to remove items from heap with heapify down', () => {
-    const maxHeap = new MaxHeap();
+    const maxHeap = new MaxHeap<number>();
 
     maxHeap.add(3);
     maxHeap.add(12);
@@ -124,7 +124,7 @@ describe('MaxHeap', () => {
   });
 
   it('should be possible to remove items from heap with heapify up', () => {
-    const maxHeap = new MaxHeap();
+    const maxHeap = new MaxHeap<number>();
 
     maxHeap.add(3);
     maxHeap.add(10);
@@ -150,7 +150,7 @@ describe('MaxHeap', () => {
   });
 
   it('should be possible to remove items from heap with custom finding comparator', () => {
-    const maxHeap = new MaxHeap();
+    const maxHeap = new MaxHeap<string>();
     maxHeap.add('a');
     maxHeap.add('bb');
     maxHeap.add('ccc');
@@ -158,7 +158,7 @@ describe('MaxHeap', () => {
 
     expect(maxHeap.toString()).toBe('dddd,ccc,bb,a');
 
-    const comparator = new Comparator((a, b) => {
+    const comparator = new Comparator<string>((a, b) => {
       if (a.length === b.length) {
         return 0;
       }
