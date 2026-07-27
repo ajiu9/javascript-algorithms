@@ -51,6 +51,16 @@ describe('Queue', () => {
     expect(queue.isEmpty()).toBe(false);
   });
 
+  it('should convert queue to array', () => {
+    const queue = new Queue<number>();
+
+    queue.enqueue(1);
+    queue.enqueue(2);
+    queue.enqueue(3);
+
+    expect(queue.toArray()).toEqual([1, 2, 3]);
+  });
+
   it('should dequeue from queue in FIFO order', () => {
     const queue = new Queue<number>();
 

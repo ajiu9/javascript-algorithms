@@ -212,6 +212,18 @@ describe('Heap', () => {
 
       expect(heap.peek()).toBe(2);
     });
+
+    it('should heapify down when removing internal node with replacement having parent and children', () => {
+      const heap = new MinHeap<number>();
+      // Build heap: [1, 3, 2, 5, 4]
+      heap.add(1).add(3).add(2).add(5).add(4);
+
+      // Remove internal node 3 (index 1). Last element 4 moves to index 1.
+      // Replacement 4 has parent 1, has child 5, and 1 <= 4 → heapifyDown.
+      heap.remove(3);
+
+      expect(heap.toString()).toBe('1,4,2,5');
+    });
   });
 
   describe('find', () => {
