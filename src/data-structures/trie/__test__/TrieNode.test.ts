@@ -24,9 +24,9 @@ describe('TrieNode', () => {
     trieNode.addChild('a');
     trieNode.addChild('o');
 
-    expect(trieNode.getChild('a').toString()).toBe('a');
-    expect(trieNode.getChild('a').character).toBe('a');
-    expect(trieNode.getChild('o').toString()).toBe('o');
+    expect(trieNode.getChild('a')!.toString()).toBe('a');
+    expect(trieNode.getChild('a')!.character).toBe('a');
+    expect(trieNode.getChild('o')!.toString()).toBe('o');
     expect(trieNode.getChild('b')).toBeUndefined();
   });
 
@@ -72,7 +72,7 @@ describe('TrieNode', () => {
   it('should NOT delete child node if the child node has children', () => {
     const trieNode = new TrieNode('c');
     trieNode.addChild('a');
-    const childNode = trieNode.getChild('a');
+    const childNode = trieNode.getChild('a')!;
     childNode.addChild('r');
 
     trieNode.removeChild('a');

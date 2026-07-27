@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   build: {
     lib: {
-      entry: 'src/index.js',
+      entry: 'src/index.ts',
       name: 'Algorithms',
       formats: ['es', 'cjs'],
       fileName: (format) => `index.${format === 'es' ? 'js' : 'cjs'}`,
@@ -18,7 +18,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/**/*.{js,ts}'],
-      exclude: ['src/**/__test__/**', 'src/index.js'],
+      exclude: ['src/**/__test__/**', 'src/index.ts'],
       thresholds: {
         statements: 100,
         branches: 95,

@@ -4,15 +4,16 @@ import TrieNode from './trieNode';
 const HEAD_CHARACTER = '*';
 
 export default class Trie {
+  head: TrieNode;
+
   constructor() {
     this.head = new TrieNode(HEAD_CHARACTER);
   }
 
   /**
-   * @param {string} word
-   * @return {Trie}
+   * @param word
    */
-  addWord(word) {
+  addWord(word: string): this {
     const characters = Array.from(word);
     let currentNode = this.head;
 
@@ -25,11 +26,10 @@ export default class Trie {
   }
 
   /**
-   * @param {string} word
-   * @return {Trie}
+   * @param word
    */
-  deleteWord(word) {
-    const depthFirstDelete = (currentNode, charIndex = 0) => {
+  deleteWord(word: string): this {
+    const depthFirstDelete = (currentNode: TrieNode, charIndex: number = 0): void => {
       if (charIndex >= word.length) {
         // Return if we're trying to delete the character that is out of word's scope.
         return;
@@ -64,10 +64,9 @@ export default class Trie {
   }
 
   /**
-   * @param {string} word
-   * @return {string[]}
+   * @param word
    */
-  suggestNextCharacters(word) {
+  suggestNextCharacters(word: string): string[] | null {
     const lastCharacter = this.getLastCharacterNode(word);
 
     if (!lastCharacter) {
@@ -80,20 +79,18 @@ export default class Trie {
   /**
    * Check if complete word exists in Trie.
    *
-   * @param {string} word
-   * @return {boolean}
+   * @param word
    */
-  doesWordExist(word) {
+  doesWordExist(word: string): boolean {
     const lastCharacter = this.getLastCharacterNode(word);
 
     return !!lastCharacter && lastCharacter.isCompleteWord;
   }
 
   /**
-   * @param {string} word
-   * @return {TrieNode}
+   * @param word
    */
-  getLastCharacterNode(word) {
+  getLastCharacterNode(word: string): TrieNode | null {
     const characters = Array.from(word);
     let currentNode = this.head;
 
@@ -102,7 +99,7 @@ export default class Trie {
         return null;
       }
 
-      currentNode = currentNode.getChild(characters[charIndex]);
+      currentNode = currentNode.getChild(characters[charIndex])!;
     }
 
     return currentNode;

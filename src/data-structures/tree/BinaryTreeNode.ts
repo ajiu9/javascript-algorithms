@@ -1,27 +1,37 @@
 import Comparator from '../../utils/comparator/Comparator';
 import HashTable from '../hash-table/HashTable';
 
-export default class BinaryTreeNode {
+export default class BinaryTreeNode<T> {
+  left: BinaryTreeNode<T> | null;
+  right: BinaryTreeNode<T> | null;
+  parent: BinaryTreeNode<T> | null;
+  value: T | null;
+
+  // Any node related meta information may be stored here.
+  meta: HashTable<unknown>;
+
+  // This comparator is used to compare binary tree nodes with each other.
+  nodeComparator: Comparator<BinaryTreeNode<T>>;
+
   /**
-   * @param {*} [value] - node value.
+   * @param [value] - node value.
    */
-  constructor(value = null) {
+  constructor(value: T | null = null) {
     this.left = null;
     this.right = null;
     this.parent = null;
     this.value = value;
 
     // Any node related meta information may be stored here.
-    this.meta = new HashTable();
+    this.meta = new HashTable<unknown>();
 
     // This comparator is used to compare binary tree nodes with each other.
-    this.nodeComparator = new Comparator();
+    this.nodeComparator = new Comparator<BinaryTreeNode<T>>();
   }
 
   /**
-   * @return {number}
    */
-  get leftHeight() {
+  get leftHeight(): number {
     if (!this.left) {
       return 0;
     }
@@ -30,9 +40,8 @@ export default class BinaryTreeNode {
   }
 
   /**
-   * @return {number}
    */
-  get rightHeight() {
+  get rightHeight(): number {
     if (!this.right) {
       return 0;
     }
@@ -41,24 +50,21 @@ export default class BinaryTreeNode {
   }
 
   /**
-   * @return {number}
    */
-  get height() {
+  get height(): number {
     return Math.max(this.leftHeight, this.rightHeight);
   }
 
   /**
-   * @return {number}
    */
-  get balanceFactor() {
+  get balanceFactor(): number {
     return this.leftHeight - this.rightHeight;
   }
 
   /**
    * Get parent's sibling if it exists.
-   * @return {BinaryTreeNode}
    */
-  get uncle() {
+  get uncle(): BinaryTreeNode<T> | undefined {
     // Check if current node has parent.
     if (!this.parent) {
       return undefined;
@@ -86,20 +92,18 @@ export default class BinaryTreeNode {
   }
 
   /**
-   * @param {*} value
-   * @return {BinaryTreeNode}
+   * @param value
    */
-  setValue(value) {
+  setValue(value: T | null): this {
     this.value = value;
 
     return this;
   }
 
   /**
-   * @param {BinaryTreeNode} node
-   * @return {BinaryTreeNode}
+   * @param node
    */
-  setLeft(node) {
+  setLeft(node: BinaryTreeNode<T> | null): this {
     // Reset parent for left node since it is going to be detached.
     if (this.left) {
       this.left.parent = null;
@@ -117,10 +121,9 @@ export default class BinaryTreeNode {
   }
 
   /**
-   * @param {BinaryTreeNode} node
-   * @return {BinaryTreeNode}
+   * @param node
    */
-  setRight(node) {
+  setRight(node: BinaryTreeNode<T> | null): this {
     // Reset parent for right node since it is going to be detached.
     if (this.right) {
       this.right.parent = null;
@@ -138,10 +141,9 @@ export default class BinaryTreeNode {
   }
 
   /**
-   * @param {BinaryTreeNode} nodeToRemove
-   * @return {boolean}
+   * @param nodeToRemove
    */
-  removeChild(nodeToRemove) {
+  removeChild(nodeToRemove: BinaryTreeNode<T>): boolean {
     if (this.left && this.nodeComparator.equal(this.left, nodeToRemove)) {
       this.left = null;
       return true;
@@ -156,11 +158,10 @@ export default class BinaryTreeNode {
   }
 
   /**
-   * @param {BinaryTreeNode} nodeToReplace
-   * @param {BinaryTreeNode} replacementNode
-   * @return {boolean}
+   * @param nodeToReplace
+   * @param replacementNode
    */
-  replaceChild(nodeToReplace, replacementNode) {
+  replaceChild(nodeToReplace: BinaryTreeNode<T>, replacementNode: BinaryTreeNode<T>): boolean {
     if (!nodeToReplace || !replacementNode) {
       return false;
     }
@@ -179,20 +180,19 @@ export default class BinaryTreeNode {
   }
 
   /**
-   * @param {BinaryTreeNode} sourceNode
-   * @param {BinaryTreeNode} targetNode
+   * @param sourceNode
+   * @param targetNode
    */
-  static copyNode(sourceNode, targetNode) {
+  static copyNode<T>(sourceNode: BinaryTreeNode<T>, targetNode: BinaryTreeNode<T>): void {
     targetNode.setValue(sourceNode.value);
     targetNode.setLeft(sourceNode.left);
     targetNode.setRight(sourceNode.right);
   }
 
   /**
-   * @return {*[]}
    */
-  traverseInOrder() {
-    let traverse = [];
+  traverseInOrder(): T[] {
+    let traverse: T[] = [];
 
     // Add left node.
     if (this.left) {
@@ -200,7 +200,7 @@ export default class BinaryTreeNode {
     }
 
     // Add root.
-    traverse.push(this.value);
+    traverse.push(this.value!);
 
     // Add right node.
     if (this.right) {
@@ -211,9 +211,8 @@ export default class BinaryTreeNode {
   }
 
   /**
-   * @return {string}
    */
-  toString() {
+  toString(): string {
     return this.traverseInOrder().toString();
   }
 }

@@ -1,24 +1,26 @@
 import BinaryTreeNode from '../BinaryTreeNode';
 import Comparator from '../../../utils/comparator/Comparator';
 
-export default class BinarySearchTreeNode extends BinaryTreeNode {
+export default class BinarySearchTreeNode<T> extends BinaryTreeNode<T> {
+  compareFunction: ((a: T, b: T) => number) | undefined;
+  nodeValueComparator: Comparator<T | null>;
+
   /**
-   * @param {*} [value] - node value.
-   * @param {function} [compareFunction] - comparator function for node values.
+   * @param [value] - node value.
+   * @param [compareFunction] - comparator function for node values.
    */
-  constructor(value = null, compareFunction = undefined) {
+  constructor(value: T | null = null, compareFunction?: (a: T, b: T) => number) {
     super(value);
 
     // This comparator is used to compare node values with each other.
     this.compareFunction = compareFunction;
-    this.nodeValueComparator = new Comparator(compareFunction);
+    this.nodeValueComparator = new Comparator<T | null>(compareFunction);
   }
 
   /**
-   * @param {*} value
-   * @return {BinarySearchTreeNode}
+   * @param value
    */
-  insert(value) {
+  insert(value: T): BinarySearchTreeNode<T> {
     if (this.nodeValueComparator.equal(this.value, null)) {
       this.value = value;
 
@@ -53,10 +55,9 @@ export default class BinarySearchTreeNode extends BinaryTreeNode {
   }
 
   /**
-   * @param {*} value
-   * @return {BinarySearchTreeNode}
+   * @param value
    */
-  find(value) {
+  find(value: T): BinarySearchTreeNode<T> | null {
     // Check the root.
     if (this.nodeValueComparator.equal(this.value, value)) {
       return this;
@@ -76,18 +77,16 @@ export default class BinarySearchTreeNode extends BinaryTreeNode {
   }
 
   /**
-   * @param {*} value
-   * @return {boolean}
+   * @param value
    */
-  contains(value) {
+  contains(value: T): boolean {
     return !!this.find(value);
   }
 
   /**
-   * @param {*} value
-   * @return {boolean}
+   * @param value
    */
-  remove(value) {
+  remove(value: T): boolean {
     const nodeToRemove = this.find(value);
 
     if (!nodeToRemove) {
@@ -103,7 +102,7 @@ export default class BinarySearchTreeNode extends BinaryTreeNode {
         parent.removeChild(nodeToRemove);
       } else {
         // Node has no parent. Just erase current node value.
-        nodeToRemove.setValue(undefined);
+        nodeToRemove.setValue(null);
       }
     } else if (nodeToRemove.left && nodeToRemove.right) {
       // Node has two children.
@@ -111,7 +110,7 @@ export default class BinarySearchTreeNode extends BinaryTreeNode {
       // and replace current value node with that next biggest value.
       const nextBiggerNode = nodeToRemove.right.findMin();
       if (!this.nodeComparator.equal(nextBiggerNode, nodeToRemove.right)) {
-        this.remove(nextBiggerNode.value);
+        this.remove(nextBiggerNode.value!);
         nodeToRemove.setValue(nextBiggerNode.value);
       } else {
         // In case if next right value is the next bigger one and it doesn't have left child
@@ -122,13 +121,12 @@ export default class BinarySearchTreeNode extends BinaryTreeNode {
     } else {
       // Node has only one child.
       // Make this child to be a direct child of current node's parent.
-      /** @var BinarySearchTreeNode */
       const childNode = nodeToRemove.left || nodeToRemove.right;
 
       if (parent) {
-        parent.replaceChild(nodeToRemove, childNode);
+        parent.replaceChild(nodeToRemove, childNode!);
       } else {
-        BinaryTreeNode.copyNode(childNode, nodeToRemove);
+        BinaryTreeNode.copyNode(childNode!, nodeToRemove);
       }
     }
 
@@ -139,9 +137,8 @@ export default class BinarySearchTreeNode extends BinaryTreeNode {
   }
 
   /**
-   * @return {BinarySearchTreeNode}
    */
-  findMin() {
+  findMin(): BinarySearchTreeNode<T> {
     if (!this.left) {
       return this;
     }

@@ -1,35 +1,37 @@
 import HashTable from '../hash-table/HashTable';
 
 export default class TrieNode {
+  character: string;
+  isCompleteWord: boolean;
+  children: HashTable<TrieNode>;
+
   /**
-   * @param {string} character
-   * @param {boolean} isCompleteWord
+   * @param character
+   * @param isCompleteWord
    */
-  constructor(character, isCompleteWord = false) {
+  constructor(character: string, isCompleteWord: boolean = false) {
     this.character = character;
     this.isCompleteWord = isCompleteWord;
-    this.children = new HashTable();
+    this.children = new HashTable<TrieNode>();
   }
 
   /**
-   * @param {string} character
-   * @return {TrieNode}
+   * @param character
    */
-  getChild(character) {
+  getChild(character: string): TrieNode | undefined {
     return this.children.get(character);
   }
 
   /**
-   * @param {string} character
-   * @param {boolean} isCompleteWord
-   * @return {TrieNode}
+   * @param character
+   * @param isCompleteWord
    */
-  addChild(character, isCompleteWord = false) {
+  addChild(character: string, isCompleteWord: boolean = false): TrieNode {
     if (!this.children.has(character)) {
       this.children.set(character, new TrieNode(character, isCompleteWord));
     }
 
-    const childNode = this.children.get(character);
+    const childNode = this.children.get(character)!;
 
     // In cases similar to adding "car" after "carpet" we need to mark "r" character as complete.
     childNode.isCompleteWord = childNode.isCompleteWord || isCompleteWord;
@@ -38,10 +40,9 @@ export default class TrieNode {
   }
 
   /**
-   * @param {string} character
-   * @return {TrieNode}
+   * @param character
    */
-  removeChild(character) {
+  removeChild(character: string): this {
     const childNode = this.getChild(character);
 
     // Delete childNode only if:
@@ -59,32 +60,28 @@ export default class TrieNode {
   }
 
   /**
-   * @param {string} character
-   * @return {boolean}
+   * @param character
    */
-  hasChild(character) {
+  hasChild(character: string): boolean {
     return this.children.has(character);
   }
 
   /**
    * Check whether current TrieNode has children or not.
-   * @return {boolean}
    */
-  hasChildren() {
+  hasChildren(): boolean {
     return this.children.getKeys().length !== 0;
   }
 
   /**
-   * @return {string[]}
    */
-  suggestChildren() {
+  suggestChildren(): string[] {
     return [...this.children.getKeys()];
   }
 
   /**
-   * @return {string}
    */
-  toString() {
+  toString(): string {
     let childrenAsString = this.suggestChildren().toString();
     childrenAsString = childrenAsString ? `:${childrenAsString}` : '';
     const isCompleteString = this.isCompleteWord ? '*' : '';
